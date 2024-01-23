@@ -7,7 +7,7 @@ export default function NoAr() {
     return (
         <div>
             <Menu />
-            No Ar
+            Em construção...
         </div>
     )
 }

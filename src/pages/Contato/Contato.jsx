@@ -7,7 +7,7 @@ export default function Contato() {
     return (
         <div>
             <Menu />
-            Contato
+            Em construção...
         </div>
     )
 }
