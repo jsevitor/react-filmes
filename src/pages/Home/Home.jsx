@@ -28,20 +28,9 @@ export default function Home() {
         <div>
             <Menu />
             <div className="container bg-white shadow p-4 mx-auto">
-                <h1 className="text-4xl font-bold my-4 text-slate-800">Populares</h1>
+                
 
-                <div className="grid gap-4 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-4 xl:grid-cols-6">
-                    {filmes.map(filme => (
-                        <div key={filme.id}>
-                            <a href={'/filme/' + filme.id}>
-                                <img src={"https://image.tmdb.org/t/p/w500/" + filme.poster_path} />
-                                <h3 className="text-xl font-semibold text-center text-slate-800">
-                                    {filme.title}
-                                </h3>
-                            </a>
-                        </div>
-                    ))}
-                </div>
+                
             </div>
         </div>
     )
