@@ -8,7 +8,7 @@ export default function Home() {
     const [filmes, setFilmes] = useState([]);
 
     useEffect(() => {
-        let token = "eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI5MDUxNGE2YWI0Yjg4ZGY0NWZmZTNmNWQ4Nzk2NzZkNiIsInN1YiI6IjY0ZjAwM2QxY2FhNTA4MDBlOTUxNjZjYSIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.59SDvErSwX-F6-slLHwL3w1vtXW36Ks0baQ7jBs54IU";
+        let token = "eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI5ODFlZGRlYjI1NDJiNTE1NzQ2ZTEwNWRhYTBlZjg0NCIsInN1YiI6IjY1NTYwMDFmNTM4NjZlMDExYzA3YzU4NiIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.VQlPkgsMYl4kkxL2JnjZ1tR7xL_NR8Pkzn6F1pxprNw";
 
         let options = {
             method: 'GET',
@@ -21,12 +21,16 @@ export default function Home() {
         let url = "https://api.themoviedb.org/3/movie/popular";
         fetch(url, options)
             .then(resp => resp.json())
-            .then(data => setFilmes(data.results))
+            .then(data => {
+                const idFilme = data.results.slice(0, 10).map(filme => filme.id);
+                setFilmes(idFilme);
+            })
             .catch(error => console.error(error));
-
-        console.log(filmes)
-
     }, []);
+
+    useEffect(() => {
+        console.log(filmes);
+    }, [filmes]);
 
     return (
         <div className="flex flex-col min-h-screen">
@@ -40,13 +44,13 @@ export default function Home() {
                         type="search"
                         name="search"
                         id="searchArtist"
-                        value={{}}
-                        
+
+
                         className="p-3 rounded-s-lg w-full bg-white text-black pl-6"
                     />
                     <button
                         className="rounded-e-lg py-3 px-5 bg-blue-300"
-                        onClick={{}}
+
                     >
                         buscar
                     </button>
