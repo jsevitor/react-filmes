@@ -6,6 +6,7 @@ import NoAr from "./pages/NoAr/Noar";
 import Contato from "./pages/Contato/Contato";
 import Filme from './pages/Filme/Filme';
 import Filmes from './pages/Filmes/Filmes';
+import FilmesPopulares from './components/requisicoes/FilmesPopulares';
 
 function App() {
 
@@ -13,7 +14,7 @@ function App() {
     <>
       <BrowserRouter>
         <Routes>
-          <Route index element={<Home />} />
+          <Route index element={<FilmesPopulares />} />
           <Route path='/filmes' element={<Filmes />} />
           <Route path='/noar' element={<NoAr />} />
           <Route path='/contato' element={<Contato />} />
