@@ -2,7 +2,8 @@
 
 import { useEffect, useState } from "react";
 import Menu from "../../components/Menu";
-import { data } from "autoprefixer";
+import { Search } from "react-feather";
+
 
 export default function Home() {
     const [filmes, setFilmes] = useState([]);
@@ -52,7 +53,7 @@ export default function Home() {
                         className="rounded-e-lg py-3 px-5 bg-blue-300"
 
                     >
-                        buscar
+                        <Search />
                     </button>
                 </div>
 
@@ -62,7 +63,7 @@ export default function Home() {
             <section className="container bg-white shadow p-4 mx-auto">
 
                 {/* POPULARES */}
-                <div className="populares p-2 bg-slate-300">
+                <div className="populares p-2 flex flex-row truncate">
                     Populares
                 </div>
 
