@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 
-export default function FilmesPopulares() {
+export default function FilmesPopulares({ popFilmes }) {
 
     const [filmes, setFilmes] = useState([]);
 
@@ -18,24 +18,13 @@ export default function FilmesPopulares() {
         let url = "https://api.themoviedb.org/3/movie/popular";
         fetch(url, options)
             .then(resp => resp.json())
-            .then(data => setFilmes(data.results))
+            .then(data => {
+                const dataPopFilmes = data.results;
+                setFilmes(dataPopFilmes);
+                popFilmes(dataPopFilmes)
+            })
             .catch(error => console.error(error));
-    }, []);
+    }, [popFilmes]);
 
-    return (
-        <div className="bg-gray-500 w-64">
-            {filmes.map(filme => (
-                <div key={filme.id}>
-                    <a href={'/filme/' + filme.id}
-                       className="bg-gray-600 h-32" 
-                    >
-                        <img src={"https://image.tmdb.org/t/p/w500/" + filme.poster_path} />
-                        <h3 className="text-base font-semibold text-center text-slate-800 p-2">
-                            {filme.title}
-                        </h3>
-                    </a>
-                </div>
-            ))}
-        </div>
-    );
+   return null;
 }
