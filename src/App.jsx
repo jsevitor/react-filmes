@@ -7,6 +7,7 @@ import Contato from "./pages/Contato/Contato";
 import Filme from './pages/Filme/Filme';
 import Filmes from './pages/Filmes/Filmes';
 import FilmesPopulares from './components/requisicoes/FilmesPopulares';
+import ImagensFundo from './components/requisicoes/ImagensFundo';
 
 function App() {
 
@@ -14,7 +15,7 @@ function App() {
     <>
       <BrowserRouter>
         <Routes>
-          <Route index element={<Home />} />
+          <Route index element={<ImagensFundo />} />
           <Route path='/filmes' element={<Filmes />} />
           <Route path='/noar' element={<NoAr />} />
           <Route path='/contato' element={<Contato />} />
