@@ -7,10 +7,13 @@ import FilmesPopulares from "../../components/requisicoes/FilmesPopulares";
 import FilmesLancamentos from "../../components/requisicoes/FilmesLancamentos";
 import FilmesEmBreve from "../../components/requisicoes/FilmesEmBreve";
 import FilmesMelhoresAvaliados from "../../components/requisicoes/FilmesEmBreve";
+import Footer from "../../components/Footer";
 
 
 export default function Home() {
     const [filmes, setFilmes] = useState([]);
+    const [search, setSearch] = useState("");
+    const [showResults, setShowResults] = useState([]);
     const [dadosPopFilmes, setDadosPopFilmes] = useState([]);
     const [dadosLancFilmes, setDadosLancFilmes] = useState([]);
     const [dadosAvaliadosFilmes, setDadosAvaliadosFilmes] = useState([]);
@@ -40,6 +43,15 @@ export default function Home() {
         console.log(dadosAvaliadosFilmes);
     }, [dadosAvaliadosFilmes]);
 
+    const handleSearchClick = () => {
+        setShowResults(false);
+        fetchData(`https://api.themoviedb.org/3/search/movie?query=${encodeURIComponent(search)}`);
+        setSearch("");
+        setTimeout(() => {
+            setShowResults(true);
+        }, 700);
+    };
+
     return (
         <div className="flex flex-col min-h-screen">
             <Menu />
@@ -52,10 +64,13 @@ export default function Home() {
                         type="search"
                         name="search"
                         id="searchArtist"
+                        value={search}
                         className="p-3 rounded-s-lg w-full bg-white text-black pl-6"
+                        onChange={(e) => setSearch(e.target.value)}
                     />
                     <button
                         className="rounded-e-lg py-3 px-5 bg-blue-300"
+                        onClick={handleSearchClick}
 
                     >
                         <Search />
@@ -111,9 +126,12 @@ export default function Home() {
                     </div>
                 </div>
 
-                {/* MELHORES AVALIADOS */}
+                {/* MAIS VOTADOS/AVALIADOS */}
                 <div className="emAvaliados p-2">
-                <h2 className="text-2xl font-semibold mb-4">Em Avaliados</h2>
+                <div className="flex justify-between">
+                    <h2 className="text-2xl font-semibold mb-4">Mais Votados</h2>
+                    <a href={'/filmes/'}>Ver Mais</a>
+                </div>
                     <div className="flex flex-row overflow-x-scroll gap-4 py-2">
                         <FilmesMelhoresAvaliados avaliadosFilmes={setDadosAvaliadosFilmes} />
                         {dadosAvaliadosFilmes.slice(0, 9).map(filme => (
@@ -133,6 +151,7 @@ export default function Home() {
 
 
             </section>
+            <Footer />
         </div>
     )
 }
