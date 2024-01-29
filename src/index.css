@@ -6,4 +6,8 @@
     .menu a {
         @apply text-gray-100 font-semibold text-lg uppercase mx-5 hover:text-yellow-400 transition-all duration-300;
     }
+
+    .box_filme {
+        @apply hover:scale-105 hover:shadow;
+    }
 }
