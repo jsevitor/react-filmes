@@ -58,7 +58,7 @@ export default function Home() {
             <Menu />
 
             {/* BANNER */}
-            <div className="banner bg-gray-500 shadow p-4 min-w-full h-96 relative overflow-hidden">
+            <div className="banner bg-gray-500 shadow p-4 min-w-full relative overflow-hidden">
                 <ImagensFundo setBackdrops={setDadosBackdrops} />
                 <div className="absolute inset-0 z-10">
                     <Slider {...sliderSettings} className="w-full h-full">
@@ -74,15 +74,16 @@ export default function Home() {
                     </Slider>
                 </div>
                 {/* BARRA DE PESQUISA */}
-                <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-20 flex items-center">
+                <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-20 flex items-center w-1/2">
                     <input
                         type="search"
                         name="search"
                         id="searchArtist"
                         value={search}
-                        className="p-3 rounded-s-lg bg-white text-black pl-6"
+                        className="p-3 rounded-s-lg bg-white text-black pl-6 w-full"
                         onChange={(e) => setSearch(e.target.value)}
                         onClick={() => setIsModalOpen(true)}
+                        placeholder="Procure por um Filme, Série ou Pessoa..."
                     />
                     <button
                         className="rounded-e-lg py-3 px-5 bg-blue-300"

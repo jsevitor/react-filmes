@@ -11,12 +11,22 @@
         @apply hover:scale-105 hover:shadow;
     }
 }
+.menu {
+    z-index: 800;
+    width: 100vw;
+}
+
+.banner {
+    max-height: 80%; 
+    height: 100vh;
+}
 
 
 .modal-content {
     z-index: 1000;
-    max-width: 80%;
-    max-height: 80%;
+    max-width: 70%;
+    max-height: 80%; 
+    height: 80%; 
     margin: 0 auto;
     padding: 20px;
     background-color: #fff;
@@ -37,6 +47,13 @@
     bottom: 0;
 }
 
+
+.btn_fechar {
+    color: gray;
+}
 .btn_fechar:hover {
     color: red;
+}
+.icn_search {
+    color: gray;
 }

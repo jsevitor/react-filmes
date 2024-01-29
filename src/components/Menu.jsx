@@ -3,7 +3,7 @@
 export default function Menu() {
 
     return (
-        <div className="menu bg-gray-700 p-4 flex justify-center">
+        <div className="menu fixed bg-gray-700 p-4 flex justify-center">
             <a href="/">Home</a>
             <a href="/filmes">Filmes</a>
             <a href="/filmes">Séries</a>
