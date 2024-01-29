@@ -1,7 +1,8 @@
 import { useEffect, useState } from "react";
 import Menu from "../../components/Menu";
-import { Search } from "react-feather";
+import { Search, X } from "react-feather";
 import Slider from "react-slick";
+import Modal from "react-modal";
 
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
@@ -11,6 +12,9 @@ import FilmesLancamentos from "../../components/requisicoes/FilmesLancamentos";
 import FilmesMelhoresAvaliados from "../../components/requisicoes/FilmesEmBreve";
 import Footer from "../../components/Footer";
 import ImagensFundo from "../../components/requisicoes/ImagensFundo";
+import PesquisaModal from "./PesquisaModal";
+
+Modal.setAppElement("#root");
 
 export default function Home() {
     const [search, setSearch] = useState("");
@@ -19,6 +23,7 @@ export default function Home() {
     const [dadosPopFilmes, setDadosPopFilmes] = useState([]);
     const [dadosLancFilmes, setDadosLancFilmes] = useState([]);
     const [dadosAvaliadosFilmes, setDadosAvaliadosFilmes] = useState([]);
+    const [isModalOpen, setIsModalOpen] = useState(false);
 
     const handleSearchClick = () => {
         setShowResults(false);
@@ -27,6 +32,14 @@ export default function Home() {
         setTimeout(() => {
             setShowResults(true);
         }, 700);
+    };
+
+    // const handleOpenModal = () => {
+    //     setIsModalOpen(true);
+    // };
+
+    const handleCloseModal = () => {
+        setIsModalOpen(false);
     };
 
     const sliderSettings = {
@@ -69,6 +82,7 @@ export default function Home() {
                         value={search}
                         className="p-3 rounded-s-lg bg-white text-black pl-6"
                         onChange={(e) => setSearch(e.target.value)}
+                        onClick={() => setIsModalOpen(true)}
                     />
                     <button
                         className="rounded-e-lg py-3 px-5 bg-blue-300"
@@ -78,6 +92,10 @@ export default function Home() {
                     </button>
                 </div>
             </div>
+
+            {/* PESQUISA MODAL */}
+            <PesquisaModal isOpen={isModalOpen} handleCloseModal={handleCloseModal} />
+
 
 
             {/* DEMAIS SEÇÕES */}
