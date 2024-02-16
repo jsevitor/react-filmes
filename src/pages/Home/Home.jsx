@@ -7,12 +7,17 @@ import Modal from "react-modal";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 
-import FilmesPopulares from "../../components/requisicoes/FilmesPopulares";
-import FilmesLancamentos from "../../components/requisicoes/FilmesLancamentos";
-import FilmesMelhoresAvaliados from "../../components/requisicoes/FilmesEmBreve";
+// import FilmesPopulares from "../../components/requisicoes/FilmesPopulares";
+// import FilmesLancamentos from "../../components/requisicoes/FilmesLancamentos";
+// import FilmesMelhoresAvaliados from "../../components/requisicoes/FilmesEmBreve";
 import Footer from "../../components/Footer";
 import ImagensFundo from "../../components/requisicoes/ImagensFundo";
 import PesquisaModal from "./PesquisaModal";
+
+import { FilmesPopulares, FilmesLancamentos, FilmesMaisAvaliados } from '../../apiRequests/FetchFilmes'
+
+import FilmesLista from "../../components/FilmesLista";
+import Banner from "../../components/BannerHome";
 
 Modal.setAppElement("#root");
 
@@ -25,6 +30,21 @@ export default function Home() {
     const [dadosAvaliadosFilmes, setDadosAvaliadosFilmes] = useState([]);
     const [isModalOpen, setIsModalOpen] = useState(false);
 
+    useEffect(() => {
+        async function fetchData() {
+            const dadosPopulares = await FilmesPopulares();
+            const dadosLancamentos = await FilmesLancamentos();
+            const dadosAvaliados = await FilmesMaisAvaliados();
+
+            setDadosPopFilmes(dadosPopulares);
+            setDadosLancFilmes(dadosLancamentos);
+            setDadosAvaliadosFilmes(dadosAvaliados);
+        }
+
+        fetchData();
+    }, []);
+
+
     const handleSearchClick = () => {
         setShowResults(false);
         fetchData(`https://api.themoviedb.org/3/search/movie?query=${encodeURIComponent(search)}`);
@@ -33,11 +53,7 @@ export default function Home() {
             setShowResults(true);
         }, 700);
     };
-
-    // const handleOpenModal = () => {
-    //     setIsModalOpen(true);
-    // };
-
+    
     const handleCloseModal = () => {
         setIsModalOpen(false);
     };
@@ -56,8 +72,10 @@ export default function Home() {
     return (
         <div className="flex flex-col min-h-screen">
             <Menu />
+            
 
             {/* BANNER */}
+            <Banner />
             <div className="banner bg-gray-500 shadow p-4 min-w-full relative overflow-hidden">
                 <ImagensFundo setBackdrops={setDadosBackdrops} />
                 <div className="absolute inset-0 z-10">
@@ -73,6 +91,7 @@ export default function Home() {
                         ))}
                     </Slider>
                 </div>
+
                 {/* BARRA DE PESQUISA */}
                 <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-20 flex items-center w-1/2">
                     <input
@@ -98,76 +117,21 @@ export default function Home() {
             <PesquisaModal isOpen={isModalOpen} handleCloseModal={handleCloseModal} />
 
 
-
-            {/* DEMAIS SEÇÕES */}
+            {/*SEÇÕES DOS FILMES */}
             <section className="container bg-white shadow p-4 mx-auto">
-
-                {/* POPULARES */}
                 <div className="populares p-4">
                     <h2 className="text-2xl font-semibold mb-4">Populares</h2>
-                    <div className="flex flex-row overflow-x-scroll gap-4 p-4">
-                        <FilmesPopulares popFilmes={setDadosPopFilmes} />
-
-                        {dadosPopFilmes.slice(0, 9).map(filme => (
-                            <div key={filme.id} className="box_filme flex-shrink-0 bg-slate-400 w-48 rounded-lg">
-                                <a href={`/filme/${filme.id}`} className="block">
-                                    <img
-                                        src={`https://image.tmdb.org/t/p/w500/${filme.poster_path}`}
-                                        className="w-48 object-cover rounded-t-lg"
-                                        alt={filme.title}
-                                    />
-                                    <h3 className="text-sm font-semibold text-center text-slate-800 p-2">
-                                        {filme.title}
-                                    </h3>
-                                </a>
-                            </div>
-                        ))}
-                    </div>
+                    <FilmesLista filmes={dadosPopFilmes.slice(0, 9)} />
                 </div>
-
-
-                {/* LANÇAMENTOS */}
+                {/* Seção de lançamentos */}
                 <div className="lançamentos p-2">
                     <h2 className="text-2xl font-semibold mb-4">Lançamentos</h2>
-                    <div className="flex flex-row overflow-x-scroll gap-4 p-4">
-                        <FilmesLancamentos lancFilmes={setDadosLancFilmes} />
-                        {dadosLancFilmes.slice(0, 9).map(filme => (
-                            <div key={filme.id} className="box_filme flex-shrink-0 bg-slate-400 w-48 rounded-lg">
-                                <a href={'/filme/' + filme.id} className="block">
-                                    <img src={"https://image.tmdb.org/t/p/w500/" + filme.poster_path}
-                                        className="w-48 object-cover rounded-t-lg"
-                                    />
-                                    <h3 className="text-sm font-semibold text-center text-slate-800 p-2">
-                                        {filme.title}
-                                    </h3>
-                                </a>
-                            </div>
-                        ))}
-                    </div>
+                    <FilmesLista filmes={dadosLancFilmes.slice(0, 9)} />
                 </div>
-
-
-                {/* MAIS VOTADOS/AVALIADOS */}
+                {/* Seção de filmes mais avaliados */}
                 <div className="emAvaliados p-2">
-                    <div className="flex justify-between">
-                        <h2 className="text-2xl font-semibold mb-4">Mais Votados</h2>
-                        <a href={'/filmes/'}>Ver Mais</a>
-                    </div>
-                    <div className="flex flex-row overflow-x-scroll gap-4 p-4">
-                        <FilmesMelhoresAvaliados avaliadosFilmes={setDadosAvaliadosFilmes} />
-                        {dadosAvaliadosFilmes.slice(0, 9).map(filme => (
-                            <div key={filme.id} className="box_filme flex-shrink-0 bg-slate-400 w-48 rounded-lg">
-                                <a href={'/filme/' + filme.id} className="block">
-                                    <img src={"https://image.tmdb.org/t/p/w500/" + filme.poster_path}
-                                        className="w-48 object-cover rounded-t-lg"
-                                    />
-                                    <h3 className="text-sm font-semibold text-center text-slate-800 p-2">
-                                        {filme.title}
-                                    </h3>
-                                </a>
-                            </div>
-                        ))}
-                    </div>
+                    <h2 className="text-2xl font-semibold mb-4">Mais Votados</h2>
+                    <FilmesLista filmes={dadosAvaliadosFilmes.slice(0, 9)} />
                 </div>
             </section>
             <Footer />

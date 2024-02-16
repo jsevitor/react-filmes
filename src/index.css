@@ -18,9 +18,25 @@
 
 .banner {
     max-height: 80%; 
-    height: 100vh;
+    height: 360px;
 }
 
+.banner-home {
+    min-height: 300px;
+    height: calc(100vh/2.5);
+    max-height: 360px;
+}
+
+header {
+    align-items: center;
+    position: fixed;
+    top: 0;
+    left: 0;
+    background-color: rgba(var(--tmdbDarkBlue),1);
+    height: 64px;
+    z-index: 10;
+    transition: top .2s linear;
+}
 
 .modal-content {
     z-index: 1000;
