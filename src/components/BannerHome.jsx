@@ -1,14 +1,10 @@
 import { useEffect, useState } from "react";
 import Slider from "react-slick";
 import ImagensFundo from "../components/requisicoes/ImagensFundo";
+import SearchBar from "./SearchBar";
 
 export default function Banner() {
     const [dadosBackdrops, setDadosBackdrops] = useState([]);
-
-    useEffect(() => {
-        // Aqui você pode fazer a lógica para obter as imagens de fundo
-        // Por exemplo, usando a função setDadosBackdrops para atualizar o estado com os dados recebidos
-    }, []);
 
     const sliderSettings = {
         dots: true,
@@ -23,7 +19,7 @@ export default function Banner() {
 
     return (
         <section className="banner-home">
-            <div className="media-banner bg-gray-500 shadow p-4 min-w-full relative overflow-hidden">
+            <div className="media-banner bg-gray-500 shadow min-w-full relative overflow-hidden">
                 <ImagensFundo setBackdrops={setDadosBackdrops} />
                 <div className="media">
                     <Slider {...sliderSettings} className="w-full h-full">
@@ -40,23 +36,7 @@ export default function Banner() {
                 </div>
                 
                 {/* BARRA DE PESQUISA */}
-                <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-20 flex items-center w-1/2">
-                    <input
-                        type="search"
-                        name="search"
-                        id="searchArtist"
-                        
-                        className="p-3 rounded-s-lg bg-white text-black pl-6 w-full"
-                        
-                        placeholder="Procure por um Filme, Série ou Pessoa..."
-                    />
-                    <button
-                        className="rounded-e-lg py-3 px-5 bg-blue-300"
-                        
-                    >
-                        {/* <Search /> */}
-                    </button>
-                </div>
+                <SearchBar />
             </div>
         </section>
     );
