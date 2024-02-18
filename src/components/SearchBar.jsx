@@ -11,12 +11,12 @@ export default function SearchBar() {
                 name="search"
                 id="searchArtist"
 
-                className="p-3 rounded-s-lg bg-white text-black pl-6 w-full"
+                className="p-1 md:p-3 rounded-s-lg bg-white text-black pl-4 w-full"
 
                 placeholder="Procure por um Filme, Série ou Pessoa..."
             />
             <button
-                className="rounded-e-lg py-3 px-5 bg-blue-300"
+                className="rounded-e-lg py-1 md:py-3 px-5 bg-blue-300"
 
             >
                 {/* <Search /> */}
