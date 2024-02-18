@@ -67,16 +67,16 @@ export default function Home() {
     };
 
     return (
-        <div className="flex flex-col min-h-screen">
+        <div className="main flex flex-col min-h-screen">
             <Menu />
 
             {/* BANNER */}
             <Banner />
 
             {/*SEÇÕES DOS FILMES */}
-            <section className="container bg-white shadow p-4 mx-auto">
+            <section className="container bg-white shadow mx-auto">
                 <div className="populares p-4">
-                    <h2 className="text-2xl font-semibold mb-4">Populares</h2>
+                    <h2 className="text-xl md:text-2xl font-semibold ">Populares</h2>
                     <FilmesLista filmes={dadosPopFilmes.slice(0, 9)} />
                 </div>
                 {/* Seção de lançamentos */}

@@ -86,28 +86,28 @@ export default function Filme() {
         }
     };
 
-
+    
     return (
-        <div>
+        <div className="main flex flex-col min-h-screen">
             <Menu />
-            <div className="container bg-gray-100 shadow mx-auto text-slate-800 p-12 grid grid-flow-col"
-                style={{ height: screenHeight - headerHeight }}
+            <section className="movie-info bg-gray-100 shadow text-slate-800 md:mx-6 lg:mx-24"
+                
             >
-                <div className="container overflow-hidden flex justify-center w-96">
+                <div className="movie-poster w-screen lg:w-96 py-4">
                     {filme && filme.poster_path && (
                         <img
                             src={`${base_url}${filme.poster_path}`}
                             alt={`${filme.title} Poster`}
-                            className="w-80 h-poster rounded-lg drop-shadow-xl object-cover"
+                            className=" w-2/3 md:w-full lg:w-full mx-auto rounded-lg drop-shadow-xl object-cover"
                         />
                     )}
                 </div>
 
-                <div>
+                <div className="movie-detail">
                     {filme && filme.title && (
-                        <div>
-                            <h1 className="text-4xl font-bold mb-6">{filme.title}</h1>
-                            <div className="flex flex-row gap-x-8 w-80 my-2 text-base text-slate-700 items-center">
+                        <div className="content p-4">
+                            <h1 className="text-4xl font-bold">{filme.title}</h1>
+                            <div className="flex flex-row gap-x-8 my-2 text-base text-slate-700 items-center">
 
                                 <h3>{getYear(filme.release_date)}</h3>
                                 <h3>{convertHour(filme.runtime)}</h3>
@@ -122,7 +122,10 @@ export default function Filme() {
                                         borderRadius: 100,
                                         color: getRatingColor(filme.vote_average),
                                     }}>
-                                    <span>{Math.floor(filme.vote_average * 10)}<span className="text-xs">%</span></span>
+                                    <span className="rating-progress">
+                                        {Math.floor(filme.vote_average * 10)}
+                                        <span className="text-xs">%</span>
+                                    </span>
                                 </div>
                             </div>
                             {filme.genres && (
@@ -151,32 +154,32 @@ export default function Filme() {
                                 )}
                             </div>
 
-                            <div className="flex flex-row gap-x-36">
+                            <div className="flex flex-wrap gap-9 my-6">
                                 <div>
-                                    <h3 className="mt-6 font-bold italic text-md">Situação</h3>
+                                    <h3 className="font-bold italic text-md">Situação</h3>
                                     <p className="text-sm">{translateStatus(filme.status)} ({reverseDate(filme.release_date)})</p>
                                 </div>
 
                                 <div>
-                                    <h3 className="mt-6 font-bold italic text-md">Orçamento</h3>
+                                    <h3 className="font-bold italic text-md">Orçamento</h3>
                                     {filme.budget && <p className="text-sm font-normal not-italic">{formatMoney(filme.budget)}</p>}
                                 </div>
 
                                 <div>
-                                    <h3 className="mt-6 font-bold italic text-md">Arrecadação</h3>
+                                    <h3 className="font-bold italic text-md">Arrecadação</h3>
                                     {filme.revenue && <p className="text-sm font-normal not-italic">{formatMoney(filme.revenue)}</p>}
                                 </div>
                             </div>
                         </div>
                     )}
                 </div>
-            </div>
+            </section>
 
             <div className="mx-8 px-6">
                 {filme.credits && filme.credits.cast && (
                     <div className="my-4">
                         <h3 className="text-2xl font-bold mb-2">Elenco:</h3>
-                        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-2">
+                        <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-2">
                             {filme.credits.cast.slice(0, 12).map((actor) => (
                                 <div key={actor.id} className="flex flex-col items-center mb-4 mr-4">
                                     {actor.known_for_department === "Acting" && (

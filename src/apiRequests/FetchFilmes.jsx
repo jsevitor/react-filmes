@@ -46,3 +46,23 @@ export async function FilmesMaisAvaliados() {
         return [];
     }
 }
+
+export async function DetalhesFilme() {
+
+    const url = `https://api.themoviedb.org/3/movie/${params.id}?append_to_response=credits&language=pt-BR`;
+
+    fetch(url, options)
+        .then((resp) => resp.json())
+        .then((data) => setFilme(data))
+        .catch((error) => console.error(error));
+
+    const handleResize = () => {
+        setScreenHeight(window.innerHeight);
+    };
+
+    window.addEventListener("resize", handleResize);
+
+    return () => {
+        window.removeEventListener("resize", handleResize);
+    };
+}
